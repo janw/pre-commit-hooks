@@ -1,0 +1,7 @@
+- id: sync_ruff_version
+  name: sync_ruff_version
+  description: Sync the version of ruff from a pre-commit config to poetry dependencies
+  entry: sync_ruff_version
+  language: python
+  files: '.pre-commit-config.yaml'
+  pass_filenames: false

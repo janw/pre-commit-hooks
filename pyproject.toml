@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "pre-commit-hooks"
+version = "0.1.0"
+description = "Collection if miscellaneous hooks for the pre-commit framework"
+authors = ["Jan Willhaus <mail@janwillhaus.de>"]
+license = "Apache-2.0"
+readme = "README.md"
+
+[tool.poetry.scripts]
+sync_ruff_version = 'pre_commit_hooks.sync_ruff_version:main'
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+tomlkit = "^0.12.5"
+pyyaml = "^6.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
