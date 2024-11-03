@@ -1,7 +1,7 @@
-- id: sync_ruff_version
-  name: sync_ruff_version
-  description: Sync the version of ruff from a pre-commit config to poetry dependencies
-  entry: sync_ruff_version
+- id: sync-poetry-pre-commit
+  name: sync-poetry-pre-commit
+  description: Sync the versions of poetry dependencies with pre-commit hooks
+  entry: sync-poetry-pre-commit
   language: python
-  files: '.pre-commit-config.yaml'
+  files: '(.pre-commit-config.yaml|pyproject.toml|poetry.lock)'
   pass_filenames: false

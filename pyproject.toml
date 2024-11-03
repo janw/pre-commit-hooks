@@ -7,14 +7,91 @@ license = "Apache-2.0"
 readme = "README.md"
 
 [tool.poetry.scripts]
-sync_ruff_version = 'pre_commit_hooks.sync_ruff_version:main'
+sync-poetry-pre-commit = 'pre_commit_hooks.sync_poetry_pre_commit:main'
 
 
 [tool.poetry.dependencies]
 python = "^3.10"
 tomlkit = "^0.12.5"
 pyyaml = "^6.0.1"
+semver = "^3.0.2"
+pre-commit = "^4"
 
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4"
+ruff = "0.7.2"
+mypy = "^1"
+ipdb = "^0.13.13"
+types-pyyaml = "*"
+
+
+[tool.poetry.group.tests.dependencies]
+pytest = "^8"
+pytest-cov = "^6"
+
+[tool.commitizen]
+version_scheme = "semver"
+version_provider = "poetry"
+version_files = [
+    "pyproject.toml:version = ",
+    "pre_commit_hooks/__init__.py",
+]
+annotated_tag = true
+tag_format = "v$version"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-select = [
+    "I",   # isort
+    "B",   # bugbear
+    "A",   # builtins
+    "ISC", # implicit-str-concat
+    "Q",   # quotes
+    "TID", # tidy-imports
+    "C4",  # comprehensions
+    "SIM", # simplify
+    "C90", # mccabe
+]
+unfixable = [
+    "B", # bugbear
+]
+ignore = [
+    "SIM108", # if-else-block-instead-of-if-exp
+    "ISC001", # single-line-implicit-string-concatenation (conflicts with ruff format)
+]
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+[tool.pytest.ini_options]
+testpaths = ["tests",]
+addopts = "--cov --cov-config=pyproject.toml --cov-report term --no-cov-on-fail"
+
+[tool.coverage.run]
+branch = true
+source = [
+    "pre_commit_hooks",
+]
+
+[tool.coverage.report]
+exclude_also = [
+    "if TYPE_CHECKING:",
+]
+precision = 2
+show_missing = true
+
+[tool.mypy]
+warn_unused_configs = true
+disallow_untyped_defs = true
+strict_optional = true
+packages = ["pre_commit_hooks"]
+
+[[tool.mypy.overrides]]
+module = [
+    "pre_commit.*",
+]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core"]
